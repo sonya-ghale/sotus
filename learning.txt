@@ -1,0 +1,28 @@
+Svelete Hot reload
+
+SSL(secure sockets layer)
+Tsl(Transport layer security) ( both are cryptographic protocols that encrypts 
+data to provide secure communication over a comuter network)
+
+Proxying means putting my server at the middle for fetching information/data
+my browser-> my server -> mangaDex Api
+
+Limitation
+http request rules
+  User-Agent header must exist and be real
+     Every request must include a User-Agent header.
+     It cannot be “fake” or empty. Basically, the server wants to know who is making the request.
+  No Via header allowed
+     Via headers usually indicate a proxy server.
+     MangaDex does not allow non-transparent proxies. If your request goes through a proxy that adds this header, it will be blocked.
+
+     Anti-abuse policies
+
+CORS restriction
+Hotlink protection for images
+
+I like
+...mangaData( like this spread Operator)
+and destructuring with rest
+
+can only use use:enhance only in form POST 
