@@ -26,3 +26,14 @@ I like
 and destructuring with rest
 
 can only use use:enhance only in form POST 
+
+in animate card_container
+translate(-50%, calc(-40% + {...})) → keeps your original centered position logic.
+Math.max(-scrollY / 8, -120) → moves up smoothly as you scroll, but stops after -120px.
+/8 controls speed — smaller divisor → faster movement.
+-120 controls limit — higher means it moves further upward before stopping.
+
+
+style="transform:
+ translate(-50%, calc(-40% + {Math.max(-scrollY / 3, -120)}px));"
+
