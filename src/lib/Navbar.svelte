@@ -49,6 +49,14 @@
 						class:underline={page.url.pathname === '/animation'}>Animation</a
 					>
 				</li>
+					
+								<li>
+						<a
+						href="/manga-tag"
+						class="font-bold transition-colors duration-300"
+						class:underline={page.url.pathname === '/animation'}>Manga Tag</a
+					>
+				</li>
 			</ul>
 		</ul>
 	</nav>

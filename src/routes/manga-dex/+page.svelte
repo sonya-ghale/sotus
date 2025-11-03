@@ -1,14 +1,15 @@
 <script lang="ts">
-	import '../../app.css';
+	import { fail } from '@sveltejs/kit';
+import '../../app.css';
 
 	let { data } = $props();
 
 	const serverData = $derived(data.serverData);
-	const mangaList = $derived(data.mangaList);
-	const totalPages = $derived(data.totalPages);
-	const currentPage = $derived(data.currentPage);
-	const searchQuery = $derived(data.searchQuery);
-	const error = $derived(data.error);
+	const mangaList = $derived(data.mangaList || []);
+	const totalPages = $derived(data.totalPages || 1);
+	const currentPage = $derived(data.currentPage || 1);
+	const searchQuery = $derived(data.searchQuery || '');
+	const error = $derived(data.error || '');
 
 	let loading: boolean = $state(false);
 
@@ -51,6 +52,7 @@
 			{new Date(serverData.timeStamp).toLocaleString()}
 		</div>
 
+		
 		<!-- Search Section - Using Form for Server-side Search -->
 		<div class="search-section">
 			<form method="get" class="search-box">

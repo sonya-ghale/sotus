@@ -105,3 +105,4 @@ export const load: PageServerLoad = async ({ url }) => {
         searchQuery
     };
 };
+
