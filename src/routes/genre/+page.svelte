@@ -118,7 +118,7 @@
 			<div class="grid grid-cols-2 gap-x-8 gap-y-3 md:grid-cols-3 lg:grid-cols-4">
 				{#each otherGenres as tag (tag.id)}
 					<a
-						href="/manga-tag/{tag.id}"
+						href="/genre/{tag.id}"
 						class="font-body-md text-on-surface-variant text-center border border-outline-variant/20 rounded-full p-2 hover:bg-red-500 hover:font-semibold hover:text-white transition hover:text-primary-container text-[#FDDBD3]"
 					>
 						{tag.name}

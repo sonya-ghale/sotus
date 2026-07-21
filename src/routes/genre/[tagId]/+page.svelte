@@ -17,7 +17,7 @@
 <main class="min-h-screen bg-background text-on-surface">
 	<div class="mx-auto max-w-container-max-width px-6 py-10 md:px-margin-desktop md:py-14">
 		<a
-			href="/manga-tag"
+			href="/genre"
 			class="mb-8 inline-flex items-center gap-2 font-label-sm text-on-surface-variant transition hover:text-primary-container"
 		>
 			← Back to Genres
@@ -69,7 +69,7 @@
 								{/if}
 							</p>
 							<div class="flex flex-wrap gap-1.5">
-								{#each manga.tags.slice(0, 2) as genreTag}
+								{#each manga.tags.slice(0, 2) as genreTag (genreTag)}
 									<span
 										class="rounded-full bg-surface-container-high px-2 py-0.5 font-label-sm text-on-surface-variant"
 									>
