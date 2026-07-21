@@ -1,6 +1,7 @@
 <script lang="ts">
   import '../app.css';
   import Navbar from '$lib/Navbar.svelte';
+  import { page } from '$app/state';
   import { settings, Button } from 'svelte-ux';
 
   // Configure svelte-ux settings
@@ -12,15 +13,20 @@
   });
 
   let { children } = $props();
+
+  const isReader = $derived(page.url.pathname.includes('/read/'));
 </script>
 
 <div class="app">
-  <Navbar />
+  {#if !isReader}
+    <Navbar />
+  {/if}
   
   <main>
     {@render children()}
   </main>
   
+  {#if !isReader}
   <!-- Test button - should work properly now -->
   <Button variant="fill" color="primary" rounded="full" class="m-4">
     Test Button
@@ -29,6 +35,7 @@
   <footer>
     <p>Powered by MangaDex</p>
   </footer>
+  {/if}
 </div>
 
 <style>

@@ -21,7 +21,11 @@ export async function GET({ url }: RequestEvent) {
 	const endpoint = url.searchParams.get('endpoint') || 'manga/tag';
 
 	try {
-		const response = await fetch(`${API_BASE}/${endpoint}`);
+		const response = await fetch(`${API_BASE}/${endpoint}`, {
+			headers: {
+				'User-Agent': 'Sotus/0.0.1 (https://github.com/sotus-manga/sotus)'
+			}
+		});
 
 		if (!response.ok) {
 			throw new Error(`MangaDex API error! status: ${response.status}`);

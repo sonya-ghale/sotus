@@ -28,7 +28,11 @@ async function fetchManga(page: number = 1, title: string = '') {
 			url += `&title=${encodeURIComponent(title)}`;
 		}
 
-		const response = await fetch(url);
+		const response = await fetch(url, {
+			headers: {
+				'User-Agent': 'Sotus/0.0.1 (https://github.com/sotus-manga/sotus)'
+			}
+		});
 
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);

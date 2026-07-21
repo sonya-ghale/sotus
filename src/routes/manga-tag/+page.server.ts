@@ -1,29 +1,41 @@
-// src/routes/manga-tag/+page.server.ts
 import type { PageServerLoad } from './$types';
+import {
+	enrichTag,
+	fetchAllTags,
+	fetchMangaByTag,
+	pickFeaturedGenres
+} from '$lib/mangadex';
 
-export const load: PageServerLoad = async ({ fetch }) => {
+export const load: PageServerLoad = async () => {
 	try {
-		// Fetch from your API gateway with the endpoint parameter
-		const tagsResponse = await fetch('/api/tags?endpoint=manga/tag');
+		const tags = await fetchAllTags();
+		const genreTags = tags.filter((tag) => tag.group === 'genre');
+		const featuredTags = pickFeaturedGenres(genreTags);
+		const featured = await Promise.all(featuredTags.map(enrichTag));
 
-		if (!tagsResponse.ok) {
-			throw new Error(`API returned ${tagsResponse.status}: ${tagsResponse.statusText}`);
-		}
+		const primaryGenre = featured[0];
+		const trending = primaryGenre
+			? await fetchMangaByTag(primaryGenre.id, 1, 12)
+			: { mangaList: [], total: 0, totalPages: 1, currentPage: 1, error: null };
 
-		const tagsData = await tagsResponse.json();
-
-		let tags = [];
-		if (tagsData.success) {
-			tags = tagsData.data;
-		}
+		const otherGenres = genreTags
+			.filter((tag) => !featuredTags.some((item) => item.id === tag.id))
+			.sort((a, b) => a.name.localeCompare(b.name));
 
 		return {
-			tags
+			featured,
+			trending: trending.mangaList,
+			trendingGenre: primaryGenre?.name ?? 'Action',
+			otherGenres,
+			error: null
 		};
 	} catch (error) {
-		console.error('Failed to load tags:', error);
+		console.error('Failed to load genres:', error);
 		return {
-			tags: [],
+			featured: [],
+			trending: [],
+			trendingGenre: 'Action',
+			otherGenres: [],
 			error: error instanceof Error ? error.message : 'Unknown error'
 		};
 	}
