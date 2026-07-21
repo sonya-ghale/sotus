@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatChapterLabel } from '$lib/mangadex';
+	import ChapterList from '$lib/components/ChapterList.svelte';
 
 	let { data } = $props();
 
@@ -15,13 +15,13 @@
 	<meta name="description" content={manga.description.slice(0, 160)} />
 </svelte:head>
 
-<main class="min-h-screen bg-background text-on-surface">
-	<div class="mx-auto max-w-container-max-width px-6 py-10 md:px-margin-desktop md:py-14">
+<main class="min-h-screen bg-[#1A1A1A] text-white text-on-surface">
+	<div class="mx-auto max-w-container-max-width px-10 py-10 md:px-margin-desktop ">
 		<a
 			href="/"
-			class="mb-8 inline-flex items-center gap-2 font-label-sm text-on-surface-variant transition hover:text-primary-container"
+			class="inline-flex items-center gap-2 mb-8 font-label-sm transition hover:text-primary-container bg-red-500 text-white px-4 py-2 rounded-md"
 		>
-			← Back to Browse
+			Back to Browse
 		</a>
 
 		<section class="mb-14 grid gap-10 lg:grid-cols-[280px_1fr]">
@@ -33,7 +33,7 @@
 				/>
 			</div>
 
-			<div>
+			<div class="bg-[#120C0B] p-4 rounded-xl">
 				<span class="mb-2 block font-label-sm uppercase tracking-widest text-primary-container">
 					Manga Details
 				</span>
@@ -46,16 +46,16 @@
 				{/if}
 
 				<div class="mb-6 flex flex-wrap gap-3">
-					<span class="rounded-full bg-surface-container px-3 py-1 font-label-sm capitalize">
+					<span class="rounded-md bg-[#1A1A1A]  bg-surface-container border border-outline-variant/20 px-3 py-1 font-label-sm capitalize">
 						{manga.status}
 					</span>
 					{#if manga.year}
-						<span class="rounded-full bg-surface-container px-3 py-1 font-label-sm">
+						<span class="rounded-md bg-[#1A1A1A]  bg-surface-container border border-outline-variant/20 px-3 py-1 font-label-sm">
 							{manga.year}
 						</span>
 					{/if}
 					{#if manga.demographic}
-						<span class="rounded-full bg-surface-container px-3 py-1 font-label-sm capitalize">
+						<span class="rounded-md bg-[#1A1A1A]  bg-surface-container border border-outline-variant/20 px-3 py-1 font-label-sm capitalize">
 							{manga.demographic}
 						</span>
 					{/if}
@@ -66,8 +66,8 @@
 				</p>
 
 				<div class="mb-8 flex flex-wrap gap-2">
-					{#each manga.tags as tag}
-						<span class="rounded-full bg-surface-container-high px-3 py-1 font-label-sm text-on-surface-variant">
+					{#each manga.tags as tag (tag)}
+						<span class="rounded-md  bg-[#1A1A1A] border border-outline-variant/20 px-3 py-1 font-label-sm text-on-surface-variant">
 							{tag}
 						</span>
 					{/each}
@@ -76,30 +76,16 @@
 				{#if firstChapterId}
 					<a
 						href="/manga/{manga.id}/read/{firstChapterId}"
-						class="inline-flex rounded-lg bg-primary-container px-6 py-3 font-label-lg text-on-primary transition hover:brightness-110"
-					>
+						class="inline-flex items-center gap-2 mb-8 font-label-sm transition hover:text-primary-container bg-red-500 text-white px-4 py-2 rounded-md"
+						>
 						Start Reading
 					</a>
 				{/if}
 			</div>
 		</section>
 
+		<!-- Chapters -->
 		<section>
-			<div class="mb-8 flex items-end justify-between gap-4">
-				<div>
-					<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Chapters</h2>
-					<p class="font-body-md text-on-surface-variant">
-						{#if chapters.length > 0}
-							{chapters.length}
-							{chapterSource === 'en' ? 'English' : 'available'}
-							{chapters.length === 1 ? 'chapter' : 'chapters'} ready to read
-						{:else}
-							No readable chapters found
-						{/if}
-					</p>
-				</div>
-			</div>
-
 			{#if chaptersError}
 				<div class="rounded-xl border border-error/40 bg-error-container/20 p-8 mb-6">
 					<h3 class="font-headline-md text-headline-md text-error mb-2">Couldn't load chapters</h3>
@@ -116,23 +102,7 @@
 					</p>
 				</div>
 			{:else}
-				<div class="overflow-hidden rounded-xl border border-outline-variant/20">
-					{#each chapters as chapter (chapter.id)}
-						<a
-							href="/manga/{manga.id}/read/{chapter.id}"
-							class="flex items-center justify-between gap-4 border-b border-outline-variant/10 bg-surface-container px-5 py-4 transition last:border-b-0 hover:bg-surface-container-high"
-						>
-							<div>
-								<p class="font-label-lg text-on-surface">{formatChapterLabel(chapter)}</p>
-								<p class="font-label-sm text-on-surface-variant">
-									{chapter.pages} pages · {chapter.translatedLanguage.toUpperCase()} ·
-									{new Date(chapter.publishAt).toLocaleDateString()}
-								</p>
-							</div>
-							<span class="font-label-sm text-primary-container">Read →</span>
-						</a>
-					{/each}
-				</div>
+				<ChapterList {chapters} mangaId={manga.id} {chapterSource} />
 			{/if}
 		</section>
 	</div>

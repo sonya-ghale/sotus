@@ -204,6 +204,7 @@ h1 {
     
     .page-btn:hover:not(:disabled) {
         background: #f8f9fa;
+        color: #d42323;
     }
     
     .page-btn:disabled {
