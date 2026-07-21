@@ -9,7 +9,7 @@
 </script>
 
 <a
-	href="/manga-tag/{tag.id}"
+	href="/genre/{tag.id}"
 	class="genre-card group relative block h-full overflow-hidden rounded-xl bg-surface-container transition-transform duration-300 hover:scale-[1.02]"
 	class:featured
 >
