@@ -8,17 +8,6 @@
 	const error = $derived(data.error || '');
 
 	let loading: boolean = $state(false);
-
-	function handleKeydown(e: KeyboardEvent, action: () => void): void {
-		if (e.key === 'Enter' || e.key === ' ') {
-			e.preventDefault();
-			action();
-		}
-	}
-
-	function viewManga(mangaId: string): void {
-		console.log('View manga:', mangaId);
-	}
 </script>
 
 <svelte:head>
@@ -59,11 +48,7 @@
 		{:else}
 			<div class="manga-grid">
 				{#each mangaList as manga (manga.id)}
-					<button
-						class="manga-card"
-						onclick={() => viewManga(manga.id)}
-						onkeydown={(e) => handleKeydown(e, () => viewManga(manga.id))}
-					>
+					<a href="/manga/{manga.id}" class="manga-card">
 						<div class="manga-cover">
 							<img src={manga.coverUrl} alt={`Cover for ${manga.title}`} loading="lazy" />
 						</div>
@@ -81,7 +66,7 @@
 								{/each}
 							</div>
 						</div>
-					</button>
+					</a>
 				{/each}
 			</div>
 

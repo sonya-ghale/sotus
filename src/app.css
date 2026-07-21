@@ -116,6 +116,7 @@ h1 {
     }
     
     .manga-card {
+        display: block;
         background: white;
         border-radius: 15px;
         overflow: hidden;
@@ -126,6 +127,8 @@ h1 {
         text-align: left;
         padding: 0;
         outline: none;
+        text-decoration: none;
+        color: inherit;
     }
     
     .manga-card:focus {

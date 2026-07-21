@@ -4,10 +4,13 @@
 	const links = [
 		{ href: '/', label: 'Home' },
 		{ href: '/animation', label: 'Animation' },
-		{ href: '/manga-tag', label: 'Manga Tag' }
+		{ href: '/manga-tag', label: 'Genres' }
 	];
 
 	function isActive(href: string): boolean {
+		if (href === '/manga-tag') {
+			return page.url.pathname.startsWith('/manga-tag');
+		}
 		return page.url.pathname === href;
 	}
 </script>
