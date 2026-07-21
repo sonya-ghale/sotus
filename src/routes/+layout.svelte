@@ -2,7 +2,7 @@
   import '../app.css';
   import Navbar from '$lib/Navbar.svelte';
   import { page } from '$app/state';
-  import { settings, Button } from 'svelte-ux';
+  import { settings } from 'svelte-ux';
 
   // Configure svelte-ux settings
   settings({
@@ -27,43 +27,20 @@
   </main>
   
   {#if !isReader}
-  <!-- Test button - should work properly now -->
-  <Button variant="fill" color="primary" rounded="full" class="m-4">
-    Test Button
-  </Button>
-  
-  <footer>
-    <p>Powered by MangaDex</p>
+
+  {#if !isReader}
+  <footer class="bg-[#1b0e0b] text-white py-8 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col items-center gap-3">
+      <span class="text-2xl font-bold text-[#FDDBD3]">Sotus</span>
+      <p class="text-sm text-white/70">Powered by MangaDex</p>
+    </div>
   </footer>
+{/if}
   {/if}
 </div>
 
 <style>
-  /* .app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    width: 100%;
-    max-width: 64rem;
-    margin: 0 auto;
-    box-sizing: border-box;
-  } */
-
-  footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 12px;
-  } 
-
+ 
   @media (min-width: 480px) {
     footer {
       padding: 12px 0;

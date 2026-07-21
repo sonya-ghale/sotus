@@ -19,7 +19,8 @@ async function fetchManga(page: number = 1, title: string = '') {
 	const API_BASE = 'https://api.mangadex.org';
 
 	try {
-		const limit = 20;
+		// how many manga to show in a page
+		const limit = 14;
 		const offset = (page - 1) * limit;
 
 		let url = `${API_BASE}/manga?limit=${limit}&offset=${offset}&order[latestUploadedChapter]=desc&includes[]=cover_art`;
@@ -49,7 +50,8 @@ async function fetchManga(page: number = 1, title: string = '') {
 				let coverUrl = createPlaceholderSvg();
 
 				if (coverArt?.attributes?.fileName) {
-					coverUrl = `https://uploads.mangadex.org/covers/${manga.id}/${coverArt.attributes.fileName}.256.jpg`;
+					// for higher resolution image changed form .256.jpg to .512.jpg
+					coverUrl = `https://uploads.mangadex.org/covers/${manga.id}/${coverArt.attributes.fileName}.512.jpg`;
 				}
 
 				return {

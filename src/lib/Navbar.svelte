@@ -47,7 +47,7 @@
 	<nav class="container mx-auto flex flex-wrap items-center justify-between gap-4 px-6 py-4">
 		<div class="flex items-center gap-10">
 			<a href="/" class="group shrink-0">
-				<span class="font-display-lg text-3xl font-extrabold text-primary tracking-tight">Sotus</span>
+				<span class="font-display-lg text-3xl font-extrabold text-[#FDDBD3] tracking-tight">Sotus</span>
 			</a>
 
 			<ul class="hidden md:flex items-center gap-8">
