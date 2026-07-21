@@ -45,7 +45,7 @@
 	</header>
 
 	<main class="mx-auto max-w-3xl px-2 py-4">
-		{#each pageUrls as pageUrl, index}
+		{#each pageUrls as pageUrl, index (pageUrl)}
 			<img
 				src={pageUrl}
 				alt="Page {index + 1} of {chapterLabel}"
