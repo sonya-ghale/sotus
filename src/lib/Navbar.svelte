@@ -1,63 +1,40 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { ListItem } from 'svelte-ux';
-	import { AppBar } from 'svelte-ux';
+
+	const links = [
+		{ href: '/', label: 'Home' },
+		{ href: '/animation', label: 'Animation' },
+		{ href: '/manga-tag', label: 'Manga Tag' }
+	];
+
+	function isActive(href: string): boolean {
+		return page.url.pathname === href;
+	}
 </script>
 
-<header class="text-white bg-gray-400 shadow-md">
-	<nav class="container px-6 py-4 mx-auto">
-		<ul class="flex gap-10">
-			<AppBar title="SOTUS" class="flex gap-4">
-				<div slot="title">
-					<ListItem title="SOTUS" class="text-xl" />
-					<ListItem class="text-sm" subheading="Read manga online with me" />
-				</div>
-			</AppBar>
-			<ul class="flex items-center justify-center gap-4">
-				<li aria-current={page.url.pathname === '/' ? 'page' : undefined}>
+<header class="bg-gray-800 text-white shadow-md">
+	<nav class="container mx-auto flex flex-wrap items-center justify-between gap-4 px-6 py-4">
+		<a href="/" class="group">
+			<p class="text-xl font-bold tracking-wide group-hover:text-gray-200">SOTUS</p>
+			<p class="text-sm text-gray-400 group-hover:text-gray-300">Read manga online with me</p>
+		</a>
+
+		<ul class="flex items-center gap-6">
+			{#each links as { href, label }}
+				<li aria-current={isActive(href) ? 'page' : undefined}>
 					<a
-						href="/"
-						class="font-bold transition-colors duration-300"
-						class:underline={page.url.pathname === '/'}>Home</a
+						{href}
+						class="rounded px-2 py-1 font-semibold transition-colors hover:text-gray-200"
+						class:text-white={isActive(href)}
+						class:text-gray-400={!isActive(href)}
+						class:underline={isActive(href)}
+						class:decoration-2={isActive(href)}
+						class:underline-offset-4={isActive(href)}
 					>
+						{label}
+					</a>
 				</li>
-				<li aria-current={page.url.pathname === '/about' ? 'page' : undefined}>
-					<a
-						href="/about"
-						class="font-bold transition-colors duration-300 "
-						class:underline={page.url.pathname === '/about'}>About</a
-					>
-				</li>
-				<li aria-current={page.url.pathname === '/demo' ? 'page' : undefined}>
-					<a
-						href="/demo"
-						class="font-bold transition-colors duration-300"
-						class:underline={page.url.pathname === '/demo'}>Demo</a
-					>
-				</li>
-				<li>
-						<a
-						href="/manga-dex"
-						class="font-bold transition-colors duration-300"
-						class:underline={page.url.pathname === '/manga-dex'}>MangaDex</a
-					>
-				</li>
-								<li>
-						<a
-						href="/animation"
-						class="font-bold transition-colors duration-300"
-						class:underline={page.url.pathname === '/animation'}>Animation</a
-					>
-				</li>
-					
-								<li>
-						<a
-						href="/manga-tag"
-						class="font-bold transition-colors duration-300"
-						class:underline={page.url.pathname === '/animation'}>Manga Tag</a
-					>
-				</li>
-			</ul>
+			{/each}
 		</ul>
 	</nav>
 </header>
