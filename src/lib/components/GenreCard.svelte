@@ -10,7 +10,7 @@
 
 <a
 	href="/manga-tag/{tag.id}"
-	class="genre-card group relative block overflow-hidden rounded-xl border border-outline-variant/20 bg-surface-container transition-transform duration-300 hover:scale-[1.02]"
+	class="genre-card group relative block h-full overflow-hidden rounded-xl bg-surface-container transition-transform duration-300 hover:scale-[1.02]"
 	class:featured
 >
 	<img
@@ -36,11 +36,11 @@
 
 <style>
 	.genre-card {
-		min-height: 220px;
+		min-height: 450px;
 	}
 
 	.genre-card.featured {
-		min-height: 460px;
+		min-height: 750px;
 	}
 
 	@media (max-width: 1023px) {

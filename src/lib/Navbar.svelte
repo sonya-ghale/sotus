@@ -5,7 +5,7 @@
 
 	const links = [
 		{ href: '/', label: 'Browse' },
-		{ href: '/animation', label: 'Latest' },
+		// { href: '/animation', label: 'Latest' },
 		{ href: '/manga-tag', label: 'Genres' }
 	];
 
