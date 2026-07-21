@@ -6,7 +6,7 @@
 	const links = [
 		{ href: '/', label: 'Browse' },
 		// { href: '/animation', label: 'Latest' },
-		{ href: '/manga-tag', label: 'Genres' }
+		{ href: '/genre', label: 'Genres' }
 	];
 
 	function isActive(href: string): boolean {
