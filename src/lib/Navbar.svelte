@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import {onMount} from 'svelte';
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	const links = [
 		{ href: '/', label: 'Browse' },
@@ -10,21 +11,28 @@
 	];
 
 	function isActive(href: string): boolean {
+		if (href === '/genre') {
+			return page.url.pathname.startsWith('/genre');
+		}
 		return page.url.pathname === href;
 	}
 
-
 	let scrolled = $state(false);
+	let searchQuery = $state('');
+
+	$effect(() => {
+		if (browser) {
+			searchQuery = page.url.searchParams.get('search') || '';
+		}
+	});
 
 	onMount(() => {
 		const handleScroll = () => {
 			scrolled = window.scrollY > 20;
 		};
-		window.addEventListener('scroll', handleScroll, {passive:true});
+		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => window.removeEventListener('scroll', handleScroll);
-	})
-
-	let searchQuery = $derived(page.url.searchParams.get('search') || '');
+	});
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') searchQuery = '';
@@ -34,7 +42,6 @@
 		e.preventDefault();
 		const q = searchQuery.trim();
 		if (!q) return;
-		// Browse page reads `search` (and resets to page 1) in its +page.server.ts load fn
 		goto(`/?search=${encodeURIComponent(q)}&page=1`);
 	}
 </script>
